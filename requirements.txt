@@ -1,0 +1,8 @@
+matplotlib>=3.7
+numpy>=1.24
+pandas>=2.0
+plotly>=5.18
+scipy>=1.10
+seaborn>=0.12
+streamlit>=1.28
+yfinance>=0.2.0
