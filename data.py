@@ -214,15 +214,13 @@ def load_market_data(
 ) -> MarketDataBundle:
     """Fetch, clean, and return market prices plus daily log returns."""
     symbols = validate_tickers(tickers, min_count=1)
-    try:
-        prices_raw = fetch_adjusted_close(tickers=symbols, period=period)
-        prices = clean_prices(prices_raw)
-        if list(prices.columns) != symbols:
-            raise MarketDataError(
-                "Downloaded data is missing one or more requested ticker series."
-            )
-    except MarketDataError:
-        prices = clean_prices(_load_default_cached_prices(symbols, period))
+
+    prices_raw = fetch_adjusted_close(tickers=symbols, period=period)
+    prices = clean_prices(prices_raw)
+    if list(prices.columns) != symbols:
+        raise MarketDataError(
+            "Downloaded data is missing one or more requested ticker series."
+        )
 
     returns = compute_log_returns(prices)
 
